@@ -10,7 +10,8 @@
       {
         "type": "text",
         "key": "APIkey",
-        "label": "API Key"
+        "label": "API Key",
+        "info": "Visit openweathermap.org to get started..."
       },
       {
         "type": "select",
