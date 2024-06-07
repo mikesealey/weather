@@ -1,0 +1,53 @@
+{
+  "type": "component",
+  "metadata": {},
+  "schema": {
+    "name": "weather",
+    "friendlyName": "Weather",
+    "description": "A custom component that uses the openweathermap.org API to display up-to-date weather information",
+    "icon": "Light",
+    "settings": [
+      {
+        "type": "text",
+        "key": "APIkey",
+        "label": "API Key"
+      },
+      {
+        "type": "select",
+        "label": "Temperature Units",
+        "key": "units",
+        "options": [
+          {
+            "label": "Celcius",
+            "value": "metric"
+          },
+          {
+            "label": "Fahrenheit",
+            "value": "imperial"
+          }
+        ],
+        "defaultValue": "metric"
+      },
+      {
+        "type": "boolean",
+        "label": "Conditions",
+        "key": "conditions"
+      },
+      {
+        "type": "boolean",
+        "label": "Humidity",
+        "key": "humidity"
+      },
+      {
+        "type": "boolean",
+        "label": "Wind speed",
+        "key": "windSpeed"
+      },
+      {
+        "type": "boolean",
+        "label": "Show icon",
+        "key": "icon"
+      }
+    ]
+  }
+}
