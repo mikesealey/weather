@@ -57,6 +57,9 @@
   }
 
   onMount(fetchWeather);
+  $: if (APIkey) {
+    fetchWeather()
+  }
   
 </script>
 
