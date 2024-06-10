@@ -94,6 +94,11 @@
     margin-right: 10px;
 }
 
+.weather:hover {
+  cursor: pointer;
+  user-select: none;
+}
+
 .weather-icon {
   filter: drop-shadow(0px 0px 10px #7e7e7e);
 }
