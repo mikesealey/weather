@@ -60,28 +60,29 @@
   
 </script>
 
-
-{#if loading}
-  <div class="loading">Loading...</div>
-{:else if error}
-  <div class="error">{error}</div>
-{:else}
-  <div class="weather" use:styleable={$component.styles} on:click={switchUnits} on:keypress={switchUnits} title="Click to change units">
-    <p>{celcius ? `${(weatherData.main.temp - 273.15).toFixed(1)}°C` : `${((weatherData.main.temp - 273.15) * (9/5) + 32).toFixed(1)}°F`}</p>
-    {#if conditions}
-    <p>{weatherData.weather[0].description}</p>
-    {/if}
-    {#if humidity}
-    <p>{weatherData.main.humidity}%</p>
-    {/if}
-    {#if windSpeed}
-    <p>{weatherData.wind.speed} m/s</p>
-    {/if}
-    {#if icon}
-      <img class="weather-icon" src="https://openweathermap.org/img/wn/{weatherData.weather[0].icon}.png" alt="{weatherData.weather[0].description}">
-    {/if}
-  </div>
-{/if}
+<div use:styleable={$component.styles}>
+  {#if loading}
+    <div class="loading">Loading...</div>
+  {:else if error}
+    <div class="error">{error}</div>
+  {:else}
+    <div class="weather" on:click={switchUnits} on:keypress={switchUnits} title="Click to change units">
+      <p>{celcius ? `${(weatherData.main.temp - 273.15).toFixed(1)}°C` : `${((weatherData.main.temp - 273.15) * (9/5) + 32).toFixed(1)}°F`}</p>
+      {#if conditions}
+      <p>{weatherData.weather[0].description}</p>
+      {/if}
+      {#if humidity}
+      <p>{weatherData.main.humidity}%</p>
+      {/if}
+      {#if windSpeed}
+      <p>{weatherData.wind.speed} m/s</p>
+      {/if}
+      {#if icon}
+        <img class="weather-icon" src="https://openweathermap.org/img/wn/{weatherData.weather[0].icon}.png" alt="{weatherData.weather[0].description}">
+      {/if}
+    </div>
+  {/if}
+</div>
 
 <style>
 .weather {
