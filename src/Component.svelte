@@ -6,14 +6,11 @@
   export let conditions;
   export let humidity;
   export let windSpeed;
-  export let units;
-  export let icon
-  let symbol = units === "metric" ? "C" : "F";
+  export let celcius;
+  export let icon;
 
   const { styleable } = getContext("sdk");
   const component = getContext("component");
-
-  $: dynamicUnits = units;
 
   let weatherData = null;
   let loading = true;
@@ -22,8 +19,8 @@
   let lon = 0;
   let currentUnits = "";
 
-  async function getWeatherData(lat, lon, units) {
-    const URL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIkey}&units=${units}`;
+  async function getWeatherData(lat, lon) {
+    const URL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIkey}`;
     try {
       const response = await fetch(URL);
       if (!response.ok) {
@@ -47,7 +44,7 @@
     try {
       const position = await getLocation();
       const { latitude, longitude } = position.coords;
-      weatherData = await getWeatherData(latitude, longitude, units);
+      weatherData = await getWeatherData(latitude, longitude);
     } catch (err) {
       error = err.message;
     } finally {
@@ -55,12 +52,12 @@
     }
   }
 
-  onMount(fetchWeather);
-
-  $: if (units) {
-    symbol = units === "metric" ? "C" : "F";
-    fetchWeather();
+  function switchUnits(){
+    celcius = !celcius
   }
+
+  onMount(fetchWeather);
+  
 </script>
 
 
@@ -69,8 +66,8 @@
 {:else if error}
   <div class="error">{error}</div>
 {:else}
-  <div class="weather" >
-    <p>{(weatherData.main.temp).toFixed(1)}°{symbol}</p>
+  <div class="weather" use:styleable={$component.styles} on:click={switchUnits} on:keypress={switchUnits} title="Click to change units">
+    <p>{celcius ? `${(weatherData.main.temp - 273.15).toFixed(1)}°C` : `${((weatherData.main.temp - 273.15) * (9/5) + 32).toFixed(1)}°F`}</p>
     {#if conditions}
     <p>{weatherData.weather[0].description}</p>
     {/if}

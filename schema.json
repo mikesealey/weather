@@ -14,20 +14,10 @@
         "info": "Visit openweathermap.org to get started..."
       },
       {
-        "type": "select",
-        "label": "Temperature Units",
-        "key": "units",
-        "options": [
-          {
-            "label": "Celcius",
-            "value": "metric"
-          },
-          {
-            "label": "Fahrenheit",
-            "value": "imperial"
-          }
-        ],
-        "defaultValue": "metric"
+        "type": "boolean",
+        "label": "Celcius",
+        "key": "celcius",
+        "defaultValue": true
       },
       {
         "type": "boolean",
