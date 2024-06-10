@@ -1,10 +1,12 @@
 # Weather
-This is a readme for your new Budibase plugin.
+A budibase plugin that displays local weather information based on the opeweathermap.org API
 
 # Description
-A custom component that displays up-to-date weather information
+A configureable custom component that shows the current weather local to the user, with properties such as temperature, wind-speed, condtions, and humidity.
 
-Find out more about [Budibase](https://github.com/Budibase/budibase).
+Head to [https://openweathermap.org/api](https://openweathermap.org/api) to get an API key, then paste it into the settings of the component.
+
+![alt text](image.png)
 
 ## Instructions
 
