@@ -8,6 +8,16 @@ Head to [https://openweathermap.org/api](https://openweathermap.org/api) to get 
 
 ![alt text](image.png)
 
+_Click the component to change units_
+
+![alt text](image-1.png)
+
+_See a wide range of icons_
+
+![alt text](image-2.png)
+
+![alt text](image-3.png)
+
 ## Instructions
 
 To build your new  plugin run the following in your Budibase CLI:
