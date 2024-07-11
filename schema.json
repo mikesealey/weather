@@ -38,6 +38,23 @@
         "type": "boolean",
         "label": "Show icon",
         "key": "icon"
+      },
+      {
+        "section": true,
+        "name": "location",
+        "info": "Defaults to user's location if left blank.",
+        "settings": [
+          {
+            "type": "text",
+            "label": "latitude",
+            "key": "latitude"
+          },
+          {
+            "type": "text",
+            "label": "longitude",
+            "key": "longitude"
+          }
+        ]
       }
     ]
   }

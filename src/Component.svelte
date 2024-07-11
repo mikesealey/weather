@@ -8,6 +8,8 @@
   export let windSpeed;
   export let celcius;
   export let icon;
+  export let latitude = null;
+  export let longitude = null;
 
   const { styleable } = getContext("sdk");
   const component = getContext("component");
@@ -15,9 +17,7 @@
   let weatherData = null;
   let loading = true;
   let error = null;
-  let lat = 0;
-  let lon = 0;
-  let currentUnits = "";
+
 
   async function getWeatherData(lat, lon) {
     const URL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIkey}`;
@@ -42,9 +42,16 @@
     loading = true;
     error = null;
     try {
-      const position = await getLocation();
-      const { latitude, longitude } = position.coords;
-      weatherData = await getWeatherData(latitude, longitude);
+      let lat = latitude;
+      let lon = longitude;
+      
+      if (!lat || !lon) {
+        const position = await getLocation();
+        lat = position.coords.latitude;
+        lon = position.coords.longitude;
+      }
+      
+      weatherData = await getWeatherData(lat, lon);
     } catch (err) {
       error = err.message;
     } finally {
@@ -52,18 +59,31 @@
     }
   }
 
-  function switchUnits(){
-    celcius = !celcius
+  function switchUnits() {
+    celcius = !celcius;
   }
 
   onMount(fetchWeather);
+
   $: if (APIkey) {
+    fetchWeather();
+  }
+
+  function variablesLog() {
+    console.log(`lat = ${latitude}, lon = ${longitude}`);
     fetchWeather()
   }
-  
+
+  $: fetchWeather(latitude, longitude)
+
+  $: {
+    variablesLog();
+    fetchWeather()
+  }
 </script>
 
 <div use:styleable={$component.styles}>
+  <button on:click={variablesLog}>click</button>
   {#if loading}
     <div class="loading">Loading...</div>
   {:else if error}
@@ -83,6 +103,7 @@
       {#if icon}
         <img class="weather-icon" src="https://openweathermap.org/img/wn/{weatherData.weather[0].icon}.png" alt="{weatherData.weather[0].description}">
       {/if}
+      <p>{weatherData.name} </p>
     </div>
   {/if}
 </div>
@@ -93,9 +114,9 @@
   align-items: center;
 }
 
-  .weather p {
-    display: inline-block;
-    margin-right: 10px;
+.weather p {
+  display: inline-block;
+  margin-right: 10px;
 }
 
 .weather:hover {
